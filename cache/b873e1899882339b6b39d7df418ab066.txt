@@ -1,0 +1,256 @@
+é¦æ¬¡è°ç¨ API | DeepSeek API Docs
+è·³å°ä¸»è¦åå®¹
+æ¬é¡µæ»è§
+é¦æ¬¡è°ç¨ API
+DeepSeek API ä½¿ç¨ä¸ OpenAI/Anthropic å¼å®¹ç API æ ¼å¼ï¼éè¿ä¿®æ¹éç½®ï¼æ¨å¯ä»¥ä½¿ç¨ OpenAI/Anthropic SDK æ¥è®¿é® DeepSeek APIï¼æä½¿ç¨ä¸ OpenAI/Anthropic API å¼å®¹çè½¯ä»¶ã
+PARAM
+VALUE
+base_url (OpenAI)
+https://api.deepseek.com
+base_url (Anthropic)
+https://api.deepseek.com/anthropic
+api_key
+apply for an
+API key
+model
+*
+deepseek-v4-flash
+deepseek-v4-pro
+deepseek-chat
+(å°äº 2026/07/24 å¼ç¨)
+deepseek-reasoner
+(å°äº 2026/07/24 å¼ç¨)
+* deepseek-chat ä¸ deepseek-reasoner ä¸¤ä¸ªæ¨¡ååå°äºåäº¬æ¶é´ 2026/07/24 23:59 å¼ç¨ãåºäºå¼å®¹èèï¼äºèåå«å¯¹åº deepseek-v4-flash çéæèä¸æèæ¨¡å¼ã
+æ¥å¥ Agent å·¥å·
+â
+DeepSeek API å·²æ¥å¥å¤ç§ä¸»æµ AI Agent ä¸ç¼ç¨å©æå·¥å·ãå¦æä½ ä½¿ç¨ Claude CodeãGitHub CopilotãOpenCode ç­å·¥å·ï¼å¯ä»¥ç´æ¥å° DeepSeek ä½ä¸ºåç«¯æ¨¡åï¼æ éç¼åä»£ç å³å¯å¼å§ä½¿ç¨ã
+è¯¦è§
+Agent å·¥å·æ¥å¥æå
+ã
+è°ç¨å¯¹è¯ API
+â
+å¨åå»º API key ä¹åï¼ä½ å¯ä»¥ä½¿ç¨ä»¥ä¸æ ·ä¾èæ¬ï¼éè¿ OpenAI API æ ¼å¼æ¥è®¿é® DeepSeek æ¨¡åãæ ·ä¾ä¸ºéæµå¼è¾åºï¼æ¨å¯ä»¥å° stream è®¾ç½®ä¸º true æ¥ä½¿ç¨æµå¼è¾åºã
+Anthropic API æ ¼å¼çè®¿é®æ ·ä¾ï¼è¯·åè
+Anthropic API
+ã
+curl
+python
+nodejs
+curl https://api.deepseek.com/chat/completions \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${DEEPSEEK_API_KEY}" \
+-d '{
+"model": "deepseek-v4-pro",
+"messages": [
+{"role": "system", "content": "You are a helpful assistant."},
+{"role": "user", "content": "Hello!"}
+],
+"thinking": {"type": "enabled"},
+"reasoning_effort": "high",
+"stream": false
+}'
+# Please install OpenAI SDK first: `pip3 install openai`
+import
+os
+from
+openai
+import
+OpenAI
+client
+=
+OpenAI
+(
+api_key
+=
+os
+.
+environ
+.
+get
+(
+'DEEPSEEK_API_KEY'
+)
+,
+base_url
+=
+"https://api.deepseek.com"
+)
+response
+=
+client
+.
+chat
+.
+completions
+.
+create
+(
+model
+=
+"deepseek-v4-pro"
+,
+messages
+=
+[
+{
+"role"
+:
+"system"
+,
+"content"
+:
+"You are a helpful assistant"
+}
+,
+{
+"role"
+:
+"user"
+,
+"content"
+:
+"Hello"
+}
+,
+]
+,
+stream
+=
+False
+,
+reasoning_effort
+=
+"high"
+,
+extra_body
+=
+{
+"thinking"
+:
+{
+"type"
+:
+"enabled"
+}
+}
+)
+print
+(
+response
+.
+choices
+[
+0
+]
+.
+message
+.
+content
+)
+// Please install OpenAI SDK first: `npm install openai`
+import
+OpenAI
+from
+"openai"
+;
+const
+openai
+=
+new
+OpenAI
+(
+{
+baseURL
+:
+'https://api.deepseek.com'
+,
+apiKey
+:
+process
+.
+env
+.
+DEEPSEEK_API_KEY
+,
+}
+)
+;
+async
+function
+main
+(
+)
+{
+const
+completion
+=
+await
+openai
+.
+chat
+.
+completions
+.
+create
+(
+{
+messages
+:
+[
+{
+role
+:
+"system"
+,
+content
+:
+"You are a helpful assistant."
+}
+]
+,
+model
+:
+"deepseek-v4-pro"
+,
+thinking
+:
+{
+"type"
+:
+"enabled"
+}
+,
+reasoning_effort
+:
+"high"
+,
+stream
+:
+false
+,
+}
+)
+;
+console
+.
+log
+(
+completion
+.
+choices
+[
+0
+]
+.
+message
+.
+content
+)
+;
+}
+main
+(
+)
+;
+æ¥å¥ Agent å·¥å·
+è°ç¨å¯¹è¯ API
