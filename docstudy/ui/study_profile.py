@@ -170,7 +170,7 @@ def render_sidebar():
                     mode = record["mode"]
                     url = record["url"]
                     timestamp = record["timestamp"]
-                    display_text = url[:35] + "..." if len(url) > 35 else url
+                    display_text = url[:40] + "..." if len(url) > 40 else url
                     
                     import datetime
                     time_str = datetime.datetime.fromtimestamp(timestamp).strftime("%m-%d %H:%M")
@@ -213,7 +213,7 @@ def render_sidebar():
                     if url.startswith("paper_"):
                         display_text = url.replace("paper_", "").split("_")[0]
                     else:
-                        display_text = url[:35] + "..." if len(url) > 35 else url
+                        display_text = url[:40] + "..." if len(url) > 40 else url
                     
                     import datetime
                     time_str = datetime.datetime.fromtimestamp(timestamp).strftime("%m-%d %H:%M")

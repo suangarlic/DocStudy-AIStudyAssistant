@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from docstudy.utils.cache_utils import load_result, save_result
 from docstudy.executors.executors import execute_learning, execute_teaching, execute_project, execute_qa
 from docstudy.ui.knowledge_graph import generate_knowledge_graph, clean_markdown_text
@@ -130,6 +131,22 @@ def handle_document_analysis(url, mode, question, btn):
             generate_knowledge_graph(current_result)
             st.subheader("📋 详细分析")
             st.markdown(clean_markdown_text(current_result))
+        elif mode == "入门讲解":
+            if current_result.endswith(".mp4") and os.path.exists(current_result):
+                st.subheader("🎬 教学视频")
+                st.video(current_result)
+                
+                with open(current_result, "rb") as f:
+                    video_bytes = f.read()
+                
+                st.download_button(
+                    label="📥 下载视频",
+                    data=video_bytes,
+                    file_name=os.path.basename(current_result),
+                    mime="video/mp4"
+                )
+            else:
+                st.markdown(current_result)
         else:
             st.markdown(current_result)
     elif url:
@@ -142,6 +159,22 @@ def handle_document_analysis(url, mode, question, btn):
                 generate_knowledge_graph(cached_result)
                 st.subheader("📋 详细分析")
                 st.markdown(clean_markdown_text(cached_result))
+            elif mode == "入门讲解":
+                if cached_result.endswith(".mp4") and os.path.exists(cached_result):
+                    st.subheader("🎬 教学视频")
+                    st.video(cached_result)
+                    
+                    with open(cached_result, "rb") as f:
+                        video_bytes = f.read()
+                    
+                    st.download_button(
+                        label="📥 下载视频",
+                        data=video_bytes,
+                        file_name=os.path.basename(cached_result),
+                        mime="video/mp4"
+                    )
+                else:
+                    st.markdown(cached_result)
             else:
                 st.markdown(cached_result)
             st.info("ℹ️ 从本地缓存加载上次分析结果")
